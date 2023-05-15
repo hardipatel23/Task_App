@@ -1,0 +1,13 @@
+<% if user_signed_in? %> 
+ <% case current_user.role %>
+  <% when 'organization_admin' %>
+    <h2>Welcome admin
+    <%= current_user.name %> </h2>
+  <% when 'user' %>
+    <h2>Welcome user
+    <%= current_user.name %> </h2>
+  <% end %>
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %> 
+<% end %>
