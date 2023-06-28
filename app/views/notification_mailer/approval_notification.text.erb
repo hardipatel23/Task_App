@@ -1,0 +1,15 @@
+
+
+Task Approval Notification
+
+Hello <%= @approver.name %>,
+
+A task in the <%= @organization.name %> organization requires your approval:
+
+- Task: <%= @task.name %>
+- Assigned To: <%= @task.assignee.name %>
+
+Please review the task and provide your approval as soon as possible.
+
+Best regards,
+Your Organization admin

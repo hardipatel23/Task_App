@@ -1,0 +1,11 @@
+<!-- app/views/comments/new.html.erb -->
+<h1>New Comment</h1>
+
+<%= form_with(model: [@task, @comment], url: task_comments_path(@task), method: :post) do |form| %>
+
+  <%= form.label :content, 'Content' %>
+  <%= form.text_area :content%>
+
+  <%= form.submit 'Create Comment', class: 'btn btn-primary' %>
+<% end %>
+  

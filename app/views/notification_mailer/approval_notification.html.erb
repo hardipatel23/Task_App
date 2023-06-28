@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Approval Notification</title>
+</head>
+<body>
+  <h2>Task Approval Notification</h2>
+  <p>Hello <%= @approver.name %>,</p>
+
+  <p>A task in the <%= @organization.name %> organization , now you are approver of this task.</p>
+
+  <ul>
+    <li>Task: <%= @task.name %></li>
+    <li>Assigned To: <%= @task.assignee.name %></li>
+  </ul>
+
+  <p>Please review the task and provide your approval as soon as possible.</p>
+
+  <p>Best regards,</p>
+  <p>Your Organization admin</p>
+</body>
+</html>

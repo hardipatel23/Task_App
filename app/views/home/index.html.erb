@@ -1,13 +1,34 @@
-<% if user_signed_in? %> 
- <% case current_user.role %>
-  <% when 'organization_admin' %>
-    <h2>Welcome admin
-    <%= current_user.name %> </h2>
-  <% when 'user' %>
-    <h2>Welcome user
-    <%= current_user.name %> </h2>
+<% if user_signed_in? %>
+  <% if current_user.organization_admin? %>
+    <% if @organizations.size == 1 %>
+     <%= link_to @organizations.first.name, root_path(organization_id: @organizations.first.id), class: 'btn btn-info disabled' %><br>
+    <% else %>
+      <%= form_tag(root_path, method: :get) do %>
+        <div class="dropdown">
+          <button class="btn btn-info dropdown-toggle" type="button" id="organizationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= current_user.current_organization ? current_user.current_organization.name : "Select Organization" %>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="organizationDropdown">
+            <% @organizations.each do |org| %>
+              <li>
+                <% if current_user.current_organization == org %>
+                  <a class="dropdown-item disabled" href="#"><%= org.name %></a>
+                <% else %>
+                  <%= link_to org.name, root_path(organization_id: org.id), class: 'dropdown-item' %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    <% end %>
+    <br>
+    <h2>Welcome admin <%= current_user.name %></h2>
+    <h3>From <%= @current_organization.name %> organization</h3>
+    <%= render 'taskslist' %>
+  <% else %>
+    <h2>Welcome user <%= current_user.name %></h2>
+    <h3>From <%= @current_organization.name %> organization</h3>
+    <%= render 'taskslist' %>
   <% end %>
-  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
-<% else %>
-  <%= button_to "Sign in", new_user_session_path %> 
 <% end %>

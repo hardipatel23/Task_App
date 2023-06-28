@@ -1,0 +1,13 @@
+Task Assignment Notification
+
+Hello <%= @assignee.name %>,
+
+You have been assigned a new task in the <%= @organization.name %> organization:
+
+- Task: <%= @task.name %>
+- Approved By: <%= @task.approver.name %>
+
+Please take necessary action on this task.
+
+Best regards,
+Your Organization admin

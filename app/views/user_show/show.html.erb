@@ -1,0 +1,15 @@
+<h2>User Details</h2>
+<p><strong>Name:</strong> <%= @user.name %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Assigned Task:</strong> 
+    <% @user.assigned_tasks.each do |task|%>
+     <%= task.name%>
+    <% end %>
+</p>
+<p><strong>Approved Task:</strong> 
+    <% @user.approved_tasks.each do |task|%>
+     <%= task.name%>
+    <% end %>
+</p>
+
+<%= link_to "Back" , root_path %>

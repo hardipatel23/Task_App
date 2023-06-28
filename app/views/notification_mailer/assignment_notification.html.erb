@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Task Assignment Notification</h1>
+    <p>Hello <%= @assignee.name %>,</p>
+    <p>You have been assigned a new task in the <%= @organization.name %> organization:</p>
+    <ul>
+      <li><strong>Task:</strong> <%= @task.name %></li>
+      <li><strong>Approved By:</strong> <%= @task.approver.name %></li>
+    </ul>
+    <p>Please take necessary action on this task.</p>
+    <p>Best regards,</p>
+    <p>Your Organization admin</p>
+  </body>
+</html>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_15_100613) do
+ActiveRecord::Schema.define(version: 2023_06_26_120409) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -34,8 +34,20 @@ ActiveRecord::Schema.define(version: 2023_05_15_100613) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.string "commentable_type", null: false
+    t.integer "commentable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -43,6 +55,32 @@ ActiveRecord::Schema.define(version: 2023_05_15_100613) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.integer "assignee_id"
+    t.integer "approver_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "organization_id"
+    t.string "status"
+    t.text "description"
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "repeat_task"
+    t.string "frequency"
+    t.date "due_date"
+    t.index ["organization_id"], name: "index_tasks_on_organization_id"
+  end
+
+  create_table "user_organizations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_user_organizations_on_organization_id"
+    t.index ["user_id"], name: "index_user_organizations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,11 +93,15 @@ ActiveRecord::Schema.define(version: 2023_05_15_100613) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.integer "role"
-    t.integer "organization_id"
+    t.integer "current_organization_id"
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "users", "organizations"
+  add_foreign_key "tasks", "organizations"
+  add_foreign_key "tasks", "users", column: "approver_id"
+  add_foreign_key "tasks", "users", column: "assignee_id"
+  add_foreign_key "user_organizations", "organizations"
+  add_foreign_key "user_organizations", "users"
 end
