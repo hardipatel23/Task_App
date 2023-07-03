@@ -1,0 +1,53 @@
+<table class="table table-info">
+  <%= form_tag(tasks_path, method: "get") do %>
+    <tr>
+      <th>
+        <div class="field">
+          <%= label_tag :name, "Task" %>
+          <%= select_tag :name, options_for_select(Task.where(organization_id: current_user.current_organization_id).pluck(:name).uniq, params[:name]), include_blank: true %>
+        </div>
+      </th>
+      <th>
+        <div class="field">
+          <%= label_tag :status, "Status" %>
+          <%= select_tag :status, options_for_select(Task.where(organization_id: current_user.current_organization_id).pluck(:status).uniq, params[:status]), include_blank: true %>
+        </div>
+      </th>
+      <th>
+        <div class="field">
+          <%= label_tag :assignee, "Assignee" %>
+          <%= select_tag :assignee, options_for_select(User.joins(:user_organizations).where(user_organizations: { organization_id: current_user.current_organization_id }).pluck(:name).uniq, params[:assignee]), include_blank: true %>
+        </div>
+      </th>
+      <th>
+        <div class="field">
+          <%= label_tag :approver, "Approver" %>
+          <%= select_tag :approver, options_for_select(User.joins(:user_organizations).where(user_organizations: { organization_id: current_user.current_organization_id }).pluck(:name).uniq, params[:approver]), include_blank: true %>
+        </div>
+      </th>
+      <th>
+        <div class="field">
+          <%= label_tag :frequency, "Frequency" %>
+          <%= select_tag :frequency, options_for_select(Task.where(organization_id: current_user.current_organization_id).pluck(:frequency).uniq, params[:frequency]), include_blank: true %>
+        </div>
+      </th>
+      <th>
+        <div class="actions">
+          <%= submit_tag "Filter" %>
+        </div>
+      </th>
+      <th>
+        <div class="actions">
+          <%= text_field_tag(:search, params[:search], placeholder: "Search tasks") %>
+          <%= submit_tag("Search", class: "search-button") %>
+        </div>
+      </th>
+      <th>
+        <div class="actions">
+          <%= link_to "Clear", tasks_path %>
+        </div>
+      </th>
+    </tr>
+  <% end %>
+</table>
+

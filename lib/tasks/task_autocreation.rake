@@ -25,7 +25,7 @@ namespace :task_autocreation do
 
       puts task.name
 
-      if start_date <= current_date && start_date <= task.due_date
+      if start_date <= task.due_date
         date_range = (start_date..current_date.at_end_of_week).step(interval).to_a 
         new_tasks = date_range.map do |date| 
           puts date
@@ -40,7 +40,7 @@ namespace :task_autocreation do
               start_date: date,
               end_date: date + interval,
               repeat_task: task.repeat_task,
-              frequency: task.frequency,
+              frequency: task.frequency,  
               due_date: task.due_date
             )
           end

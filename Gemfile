@@ -67,3 +67,4 @@ gem "letter_opener", group: :development
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
 
 gem 'whenever'
+

@@ -3,8 +3,12 @@ class Task < ApplicationRecord
     belongs_to :approver, class_name: 'User'
     belongs_to :organization
     has_many :comments, as: :commentable, dependent: :destroy
-    # validate :validate_assignee_not_organization_admin
-    # validate :validate_approver_not_organization_admin
+
+    validates :name, presence: true
+    validates :description, presence: true
+    validates :start_date, presence: true
+    validates :end_date, presence: true
+    validate :validate_dates
   
 
     enum status: {
@@ -31,11 +35,19 @@ class Task < ApplicationRecord
 
     private
 
+    # validate :validate_assignee_not_organization_admin
+    # validate :validate_approver_not_organization_admin
     # def validate_assignee_not_organization_admin
     #   if assignee&.organization_admin?
     #     errors.add(:assignee_id, 'cannot be an organization admin')
     #   end
     # end
+
+    def validate_dates
+      if end_date < start_date
+        errors.add(:end_date, 'is not less than start_date')
+      end
+    end
 
     # def validate_approver_not_organization_admin
     #   if approver&.organization_admin?

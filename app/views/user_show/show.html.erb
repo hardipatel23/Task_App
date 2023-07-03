@@ -3,12 +3,12 @@
 <p><strong>Email:</strong> <%= @user.email %></p>
 <p><strong>Assigned Task:</strong> 
     <% @user.assigned_tasks.each do |task|%>
-     <%= task.name%>
+     <%= task.name%>,
     <% end %>
 </p>
 <p><strong>Approved Task:</strong> 
     <% @user.approved_tasks.each do |task|%>
-     <%= task.name%>
+     <%= task.name%>,
     <% end %>
 </p>
 

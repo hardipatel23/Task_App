@@ -1,17 +1,35 @@
+<%= render "filter"%>
+
 <h2>Task List</h2>
  
   <table class="table table-info table-striped">
       <tr>
-        <th>Title</th>
+        <th>
+          <%= link_to 'Task Name', tasks_path(sort_field: 'name', sort_direction: params[:sort_field] == 'name' && params[:sort_direction] == 'asc' ? 'desc' : 'asc') %>
+        </th>
         <th>Description</th>
-        <th>status</th>
-        <th>Assignee</th>
-        <th>Approver</th>
-        <th>Start Date</th>
-        <th>End Date</th>
+        <th>
+          <%= link_to 'Status', tasks_path(sort_field: 'status', sort_direction: params[:sort_field] == 'status' && params[:sort_direction] == 'asc' ? 'desc' : 'asc') %>
+        </th>
+        <th>
+          <%= link_to 'Assignee', tasks_path(sort_field: 'assignee', sort_direction: params[:sort_field] == 'assignee' && params[:sort_direction] == 'asc' ? 'desc' : 'asc') %>
+        </th>
+        <th>
+          <%= link_to 'Approver', tasks_path(sort_field: 'approver', sort_direction: params[:sort_field] == 'approver' && params[:sort_direction] == 'asc' ? 'desc' : 'asc') %>
+        </th>
+        <th>
+          <%= link_to 'Start Date', tasks_path(sort_field: 'start_date', sort_direction: params[:sort_field] == 'start_date' && params[:sort_direction] == 'asc' ? 'desc' : 'asc') %>
+        </th>
+        <th>
+          <%= link_to 'End Date', tasks_path(sort_field: 'end_date', sort_direction: params[:sort_field] == 'end_date' && params[:sort_direction] == 'asc' ? 'desc' : 'asc') %>
+        </th>
         <th>Repeat Task</th>
-        <th>Frequency</th>
-        <th>Due Date</th>
+        <th>
+          <%= link_to 'Frequency', tasks_path(sort_field: 'frequency', sort_direction: params[:sort_field] == 'frequency' && params[:sort_direction] == 'asc' ? 'desc' : 'asc') %>
+        </th>
+        <th>
+          <%= link_to 'Due Date', tasks_path(sort_field: 'due_date', sort_direction: params[:sort_field] == 'due_date' && params[:sort_direction] == 'asc' ? 'desc' : 'asc') %>
+        </th>
         <th>Actions</th>
       </tr>
     <tbody>
